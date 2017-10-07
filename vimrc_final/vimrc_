@@ -35,14 +35,15 @@ nnoremap <silent> <C-Left> :bp<CR>
 "autocmd VimEnter * if argc() == 0 | Startify | NERDTree | wincmd w | endif
 
 
+
 "source $HOME/dotfiles-10/vimrc
 "inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
-nnoremap <leader>avv :tabnew ~/dotfiles-10/vimrc <CR>
-nnoremap <leader>avs :tabnew ~/.spacevim<CR>
+nnoremap <leader>avv :tabnew ~/Documents/dotfiles/vimrc_final/vimrc_ <CR>
+nnoremap <leader>avss :tabnew ~/.spacevim<CR>
 
 nnoremap <leader>jk <esc><CR>
 nnoremap <leader>x :x<CR>
@@ -59,8 +60,8 @@ set directory=~/.vim/swaps
 
 
 " Change mapleader (easier to type), at the top since its used everywhere
-let mapleader=","
-let maplocalleader=";"
+" let mapleader=","
+" let maplocalleader=";"
 
 set spelllang=en_us         " spell checking
 set encoding=utf-8 nobomb   " BOM often causes trouble, UTF-8 is awsum.
@@ -197,8 +198,8 @@ endif
 " --- command completion ---
 set wildmenu                " Hitting TAB in command mode will
 set wildchar=<TAB>          "   show possible completions.
-set wildmode=list:longest
-set wildignore+=*.DS_STORE,*.db,node_modules/**,*.jpg,*.png,*.gif
+set wildmode=list:longest,full
+set wildignore+=*.DS_STORE,*.db,node_modules/**,*.jpg,*.png,*.gif,*.git
 
 
 " --- diff ---
@@ -275,7 +276,6 @@ set autoread      " Reload files changed outside vim
 " set guifont=Inconsolata\ for\ Powerline:h24
 set cursorline    " highlight the current line
 set visualbell    " stop that ANNOYING beeping
-set wildmenu
 set wildmode=list:longest,full
 
 "Allow usage of mouse in iTerm
@@ -334,26 +334,7 @@ set scrolloff=8         "Start scrolling when we're 8 lines away from margins
 set sidescrolloff=15
 set sidescroll=1
 
-"Toggle relative numbering, and set to absolute on loss of focus or insert mode
-set rnu
-function! ToggleNumbersOn()
-  set nu!
-  set rnu
-endfunction
-function! ToggleRelativeOn()
-  set rnu!
-  set nu
-endfunction
-" autocmd FocusLost * call ToggleRelativeOn()
-" autocmd FocusGained * call ToggleRelativeOn()
-" autocmd InsertEnter * call ToggleRelativeOn()
-" autocmd InsertLeave * call ToggleRelativeOn()
-
-"Use enter to create new lines w/o entering insert mode
-nnoremap <CR> o<Esc>
-"Below is to fix issues with the ABOVE mappings in quickfix window
-" autocmd CmdwinEnter * nnoremap <CR> <CR>
-" autocmd BufReadPost quickfix nnoremap <CR> <CR>
+autocmd BufReadPost quickfix nnoremap <CR> <CR>
 
 " Quicker window movement
 nnoremap <C-j> <C-w>j
@@ -467,6 +448,7 @@ augroup vimrcEx
 
   " Set syntax highlighting for specific file types
   autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufRead,BufNewFile  set filetype=markdown
 
   " autocmd BufRead *.jsx set ft=jsx.html
   " autocmd BufNewFile *.jsx set ft=jsx.html
@@ -853,7 +835,7 @@ nnoremap <leader>rr :silent call KeywordsAll()<CR> :%s#\<<C-r>=expand("<cword>")
 " noremap ;; a_<esc>r
 
 " Visually select the text that was last edited/pasted
-nnoremap <leader>v `[v`]
+nnoremap <leader>vv` `[v`]
 
 " fast Ack
 nnoremap <leader>a :tab split<CR>:Ack<Space>
@@ -874,8 +856,8 @@ noremap <C-S-Right> <C-w>r
 noremap <C-S-Left> <C-w>R
 
 " Open current buffer in a new split
-noremap <leader>s :vsplit<cr>
-noremap <leader>i :split<cr>
+noremap <leader>v :vsplit<cr>
+noremap <leader>h :split<cr>
 
 " close window
 noremap <leader>q :clo<CR>
@@ -909,6 +891,9 @@ augroup mm_buf_cmds
     " when vimrc is edited, reload it
     autocmd bufwritepost .gvimrc source %
     autocmd bufwritepost .vimrc source %
+    autocmd bufwritepost .spacevim source %
+    autocmd bufwritepost vimrc_ source %
+    autocmd bufwritepost _vimrc source %
 
     " Only show cursorline in the current window and in normal mode
     au WinLeave,InsertEnter * set nocul
@@ -925,33 +910,11 @@ augroup mm_buf_cmds
     " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     " jscomplete is a separate plugin
     autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
     " make `gf` search for .js files
     autocmd FileType javascript setlocal suffixesadd=.js
     autocmd FileType javascript setlocal path+=js,scripts
-
-
-    " make sure `complete` works as expected for CSS class names without
-    " messing with motions (eg. '.foo-bar__baz') and we make sure all
-    " delimiters (_,-,$,%,.) are treated as word separators outside insert mode
-    autocmd InsertEnter,BufLeave * :silent call KeywordsAll()
-    autocmd InsertLeave,BufEnter * :silent call KeywordsBasic()
-
-    " yes, we need to duplicate it on VimEnter for some weird reason
-    autocmd VimEnter * nnoremap * :silent call KeywordsAll()<CR> *
-    autocmd VimEnter * nnoremap # :silent call KeywordsAll()<CR> #
-
-
-    " Toggle relative/absolute line numbers during edit
-    " if exists('+relativenumber')
-        " autocmd InsertEnter * setl nu
-        " autocmd InsertLeave,BufEnter * setl rnu
-    " endif
-
-    " highlight char at column 81 (textwidth + 1)
-"    autocmd BufEnter * match OverLength /\%81v/
 
     " Color Column (only on insert)
     if exists("&colorcolumn")
@@ -960,3 +923,4 @@ augroup mm_buf_cmds
     endif
 augroup END
 let g:indent_guides_enable_on_vim_startup = 1
+let g:ale_enabled = 1
