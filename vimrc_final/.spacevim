@@ -1,0 +1,60 @@
+
+" Let vim and neovim share the same plugin directory
+let g:spacevim_plug_home = '~/.vim/plugged'
+
+
+function! Layers()
+
+  " Shipped layers in
+  Layer 'programming'
+  " Layer 'editing'
+  Layer 'code-snippets'
+  Layer 'UltiSnips'
+  Layer 'auto-completion'
+  Layer 'python'
+  Layer 'syntax-checking'
+  Layer 'git'
+  Layer 'better-defaults'
+  Layer 'airline'
+  Layer 'markdown'
+  Layer 'file-manager'
+  Layer 'ctrlp'
+  Layer 'fzf'
+  " Layer 'unite'
+  " Layer 'github'
+  " Layer 'better-motion'
+  " Layer 'text-align'
+  Layer 'docker'
+
+endfunction
+
+" Private plugins
+function! UserInit()
+
+  " Plug 'junegunn/seoul256.vim'
+  Plug 'davidhalter/jedi-vim', {'on_ft' : 'python'}
+  Plug 'tmhedberg/matchit'
+  Plug 'tomtom/tcomment_vim'
+
+
+
+endfunction
+
+let mapleader=' '
+" Override the default settings
+function! UserConfig()
+  let g:ale_enabled = 1
+  autocmd FileType python setlocal completeopt-=preview
+  autocmd FileType python setlocal omnifunc=jedi#completions
+" inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
+" let g:UltiSnipsExpandTrigger = "<nop>"
+" inoremap <expr> <CR> pumvisible() ? "<C-R>=UltiSnips#ExpandSnippetOrJump()<CR>" : "\<CR>"
+" let g:UltiSnipsExpandTrigger = "<tab>"
+" let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" " let g:UltiSnipsExpandTrigger = "<nop>"
+endfunction
+
+au FileType xml setlocal foldmethod=syntax
+au FileType Python setlocal foldmethod=indent
+set foldmethod=indent
