@@ -41,6 +41,6 @@ call spacevim#begin()
 
 Layer 'spacevim'
 
-source vimrc_final\vimrc_ 
+source $HOME/Documents/dotfiles/space-vim/vimrc_final/vimrc_
 
 call spacevim#end()
