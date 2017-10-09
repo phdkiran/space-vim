@@ -31,7 +31,11 @@ endif
 " }
 
 "let g:spacevim_dir = $HOME.'/.space-vim'
-let g:spacevim_dir = $HOME.'/Documents/dotfiles/space-vim'
+if g:WINDOWS
+    let g:spacevim_dir = $HOME.'/Documents/dotfiles/space-vim'
+else
+    let g:spacevim_dir = $HOME.'/space-vim'
+endif
 let g:spacevim_core_dir = '/core'
 let g:spacevim_version = '0.6.0'
 
@@ -41,6 +45,10 @@ call spacevim#begin()
 
 Layer 'spacevim'
 
-source $HOME/Documents/dotfiles/space-vim/vimrc_final/vimrc_
+if g:WINDOWS
+    source $HOME/Documents/dotfiles/space-vim/vimrc_final/vimrc_
+else
+    source $HOME/space-vim/vimrc_final/vimrc_
+endif
 
 call spacevim#end()

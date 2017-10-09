@@ -1,14 +1,29 @@
 " Let Vim and NeoVim shares the same plugin directory.
 " Comment it out if you don't like
-let g:spacevim_plug_home = '~/.vim/plugged'
+let g:spacevim_plug_home = 'C:/Users/kraminen/.vim/plugged/'
 
 " Enable the existing layers in space-vim
 function! Layers()
 
   " Default layers
-  Layer 'fzf'
+  " Layer 'python'
+  " Layer 'fzf'
+  " Layer 'github'
+  " Layer 'better-motion'
+  " Layer 'text-align'
   Layer 'unite'
+  Layer 'editing'
+  Layer 'code-snippets'
+  Layer 'programming'
+  Layer 'auto-completion'
+  Layer 'syntax-checking'
+  Layer 'git'
   Layer 'better-defaults'
+  Layer 'airline'
+  Layer 'markdown'
+  Layer 'file-manager'
+  Layer 'ctrlp'
+  Layer 'docker'
 
 endfunction
 
@@ -22,13 +37,20 @@ function! UserInit()
   " let g:spacevim_localleader = ','
 
   " Install personal plugins
-  " Plug 'hecal3/vim-leader-guide'
+    Plug 'hecal3/vim-leader-guide'
+    Plug 'davidhalter/jedi-vim', {'on_ft' : 'python'}
+    Plug 'mileszs/ack.vim'
+    Plug 'tpope/vim-commentary'
+    Plug 'diepm/vim-rest-console'
 
 endfunction
 
 " Override the default settings as well as adding extras
 function! UserConfig()
 
+   let g:ale_enabled = 1
+   let g:completor_auto_trigger = 1
+   inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
   " If you have installed the powerline fonts and want to enable airline layer
   " let g:airline_powerline_fonts=1
 

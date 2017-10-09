@@ -36,8 +36,8 @@ nnoremap <silent> <C-Left> :bp<CR>
 
 
 
-"source $HOME/dotfiles-10/vimrc
-"inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
+"source $HOME/dotfiles-10/vimr: 
+" inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
@@ -51,7 +51,7 @@ inoremap jk <esc>
 inoremap ww <esc> :w <CR>
 nnoremap <leader>av :tabnew ~/.vimrc <CR>
 inoremap aff <esc> :Autoformat <CR>
-nnoremap <leader>so :source ~/.vimrc<CR>
+nnoremap <leader>so :source $VIMRC<CR>
 nnoremap <leader>af <esc> :Autoformat <CR>
 
 " Local dirs (centralize everything)
@@ -417,8 +417,8 @@ nnoremap <silent> <Left> :vertical resize -5<cr>
 nnoremap <silent> <Up> :resize +5<cr>
 nnoremap <silent> <Down> :resize -5<cr>
 
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <S-Tab> <c-n>
+" inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+" inoremap <S-Tab> <c-n>
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
@@ -468,8 +468,8 @@ augroup vimrcEx
 augroup END
 
 " Quick run via <F5>
-nnoremap <F5> :call <SID>compile_and_run()<CR>
-inoremap <F5> <Esc> :call <SID>compile_and_run()<CR>
+nnoremap <F5> :call compile_and_run()<CR>
+inoremap <F5> <Esc> :call compile_and_run()<CR>
 
 nnoremap 223 :AsyncRun! 2to3 % -w <CR>
 nnoremap d2u :AsyncRun! dos2unix % -w<CR>
@@ -484,15 +484,15 @@ augroup END
 function! s:compile_and_run()
     exec 'w'
     if &filetype == 'c'
-        exec "AsyncRun! gcc % -o %<; time ./%<"
+        exec "AsyncRun! gcc % -o %<"
     elseif &filetype == 'cpp'
-       exec "AsyncRun! g++ -std=c++11 % -o %<; time ./%<"
+       exec "AsyncRun! g++ -std=c++11 % -o %<"
     elseif &filetype == 'java'
-       exec "AsyncRun! javac %; time java %<"
+       exec "AsyncRun! javac %"
     elseif &filetype == 'sh'
-       exec "AsyncRun! time bash %"
+       exec "AsyncRun! bash %"
     elseif &filetype == 'python'
-       exec "AsyncRun! time python %"
+       exec "AsyncRun! -raw python %"
     endif
 endfunction
 
@@ -547,24 +547,16 @@ noremap <silent><leader>lp :lprev<CR>
 
 " --- autocomplete / supertab / jscomplete ---
 set infercase
-set completeopt=longest,menuone
-set omnifunc=syntaxcomplete#Complete
-set completefunc=syntaxcomplete#Complete
-set complete=.,w,b,u,U,t,i,d
+"set completeopt=longest,menuone
+"set omnifunc=syntaxcomplete#Complete
+"set completefunc=syntaxcomplete#Complete
+"set complete=.,w,b,u,U,t,i,d
 " see [autocommands] at the end for more autocomplete settings
-
-" nodejs-complete / jscomplete
-let g:node_usejscomplete = 1
-let g:jscomplete_use = ['dom', 'moz']
 
 let g:SuperTabMappingForward = '<c-space>'
 let g:SuperTabMappingBackward = '<s-c-Space>'
 let g:SuperTabLongestEnhanced = 1
 let g:SuperTabDefaultCompletionType = "<c-p>"
-
-
-" --- snipmate ---
-let g:snips_author = 'Miller Medeiros'
 
 
 " --- EasyMotion ---
@@ -580,7 +572,6 @@ function! StripWhitespace ()
     let save_cursor = getpos(".")
     let old_query = getreg('/')
     :%s/\s\+$//e
-    call setpos('.', save_cursor)
     call setreg('/', old_query)
 endfunction
 
@@ -895,12 +886,14 @@ augroup mm_buf_cmds
     autocmd bufwritepost vimrc_ source %
     autocmd bufwritepost _vimrc source %
 
+
     " Only show cursorline in the current window and in normal mode
     au WinLeave,InsertEnter * set nocul
     au WinEnter,InsertLeave * set cul
 
     " filetype
     autocmd BufNewFile,BufRead *.json setf json
+    autocmd BufNewFile,BufRead .spacevim setf vim 
 
     autocmd FileType mustache runtime! ftplugin/html/sparkup.vim
 
@@ -924,3 +917,7 @@ augroup mm_buf_cmds
 augroup END
 let g:indent_guides_enable_on_vim_startup = 1
 let g:ale_enabled = 1
+nnoremap <Leader>( <esc>0 /print<CR>elr\($a\)<esc>  
+let g:UltiSnipsUsePythonVersion = 3
+let g:UltiSnipsSnippetDirectories = ['~/UltiSnips']
+
