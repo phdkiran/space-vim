@@ -87,5 +87,5 @@ augroup END
 
 " vim-polyglot {
   " Reset errorformat to its default value for cooperating with asyncrun.vim
-  autocmd BufEnter * set errorformat&
+"  autocmd BufEnter * set errorformat&
 " }

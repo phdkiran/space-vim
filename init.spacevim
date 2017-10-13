@@ -37,11 +37,15 @@ function! UserInit()
   " let g:spacevim_localleader = ','
 
   " Install personal plugins
+    Plug 'beyondgrep/ack2'
+    Plug 'ggreer/the_silver_searcher'
     Plug 'hecal3/vim-leader-guide'
     Plug 'davidhalter/jedi-vim', {'on_ft' : 'python'}
     Plug 'mileszs/ack.vim'
     Plug 'tpope/vim-commentary'
     Plug 'diepm/vim-rest-console'
+    Plug 'Shougo/vimshell.vim'
+    Plug 'ivanov/vim-ipython'
 
 endfunction
 
@@ -50,9 +54,16 @@ function! UserConfig()
 
    let g:ale_enabled = 1
    let g:completor_auto_trigger = 1
-   inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
+   let g:ackprg = 'ag --vimgrep *'
+   "inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
   " If you have installed the powerline fonts and want to enable airline layer
   " let g:airline_powerline_fonts=1
+    if g:WINDOWS
+        source $HOME/Documents/dotfiles/space-vim/vimrc_final/vimrc_
+    else
+        source $HOME/space-vim/vimrc_final/vimrc_
+    endif
+
 
   " Use gui colors in terminal if available
   if has('termguicolors')

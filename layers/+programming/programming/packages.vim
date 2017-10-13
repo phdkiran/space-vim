@@ -8,7 +8,7 @@ MP 'matze/vim-move', { 'on': [
             \ '<Plug>MoveLineUp',
             \ ]}
 
-MP 'junegunn/rainbow_parentheses.vim', { 'for': ['lisp', 'clojure', 'scheme'] }
+MP 'junegunn/rainbow_parentheses.vim', { 'for': ['lisp', 'clojure', 'scheme', 'py'] }
 
 " Need to disable airline extension for tagbar, see vim-airline issue 1313.
 MP 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
@@ -20,4 +20,4 @@ MP 'nathanaelkane/vim-indent-guides', { 'on': 'IndentGuidesToggle' }
 
 MP 'skywind3000/asyncrun.vim',        { 'on': ['AsyncRun!', 'AsyncRun'] }
 
-MP 'sheerun/vim-polyglot'
+"MP 'sheerun/vim-polyglot'

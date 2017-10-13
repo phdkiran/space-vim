@@ -21,6 +21,8 @@ let g:MAC = has('macunix')
 let g:LINUX = has('unix') && !has('macunix') && !has('win32unix')
 let g:WINDOWS = has('win32') || has('win64')
 " }
+"
+" set pythonthreedll='c:\Anaconda\python36.dll'
 
 " Windows Compatible {
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
@@ -45,10 +47,5 @@ call spacevim#begin()
 
 Layer 'spacevim'
 
-if g:WINDOWS
-    source $HOME/Documents/dotfiles/space-vim/vimrc_final/vimrc_
-else
-    source $HOME/space-vim/vimrc_final/vimrc_
-endif
-
 call spacevim#end()
+

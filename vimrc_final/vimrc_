@@ -14,7 +14,7 @@ let g:WINDOWS = has('win32') || has('win64')
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
 " across (heterogeneous) systems easier.
 if g:WINDOWS
-  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+  " set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
   " max the gui
   au GUIEnter * simalt ~x
 endif
@@ -196,10 +196,11 @@ if exists('+relativenumber')
 endif
 
 " --- command completion ---
-set wildmenu                " Hitting TAB in command mode will
-set wildchar=<TAB>          "   show possible completions.
-set wildmode=list:longest,full
-set wildignore+=*.DS_STORE,*.db,node_modules/**,*.jpg,*.png,*.gif,*.git
+" set wildmenu                " Hitting TAB in command mode will
+" set wildchar=<TAB>          "   show possible completions.
+" set wildmode=list:longest,full
+" set wildignore+=*.DS_STORE,*.db,node_modules/**,*.jpg,*.png,*.gif,*.git
+
 
 
 " --- diff ---
@@ -220,20 +221,14 @@ set nofoldenable            " don't fold by default
 "set listchars=tab:▹\ ,trail:·,nbsp:⚋
 "set fillchars=fold:-
 "set list
-
-
 " --- remove sounds effects ---
 set noerrorbells
 set visualbell
 
-
-
-
 " -----------------------------------------------------------------------------
 " INDENTATION AND TEXT-WRAP
 " -----------------------------------------------------------------------------
-
-set expandtab                   " Expand tabs to spaces
+" set expandtab                   " Expand tabs to spaces
 set autoindent smartindent      " auto/smart indent
 set copyindent                  " copy previous indentation on auto indent
 set softtabstop=2               " Tab key results in # spaces
@@ -253,7 +248,6 @@ set nomodeline                  " don't use modeline (security)
 
 set pastetoggle=<leader>p       " paste mode: avoid auto indent, treat chars
                                 "   as literal.
-
 
 " Leader - ( Spacebar )
 let mapleader = " "
@@ -276,7 +270,6 @@ set autoread      " Reload files changed outside vim
 " set guifont=Inconsolata\ for\ Powerline:h24
 set cursorline    " highlight the current line
 set visualbell    " stop that ANNOYING beeping
-set wildmode=list:longest,full
 
 "Allow usage of mouse in iTerm
 set ttyfast
@@ -317,12 +310,12 @@ set splitbelow
 " set splitright
 
 " Auto resize Vim splits to active split
-set winwidth=104
-set winheight=5
-set winminheight=5
-set winheight=999
+"set winwidth=104
+"set winheight=5
+"set winminheight=5
+"set winheight=999
 
-"HTML Editing
+""HTML Editing
 " set matchpairs+=<:>
 
 " Treat <li> and <p> tags like the block tags they are
@@ -356,16 +349,16 @@ vnoremap <tab> %
 
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
-set spellfile=$HOME/.vim-spell-en.utf-8.add
+" set spellfile=$HOME/.vim-spell-en.utf-8.add
 
 " Always use vertical diffs
 set diffopt+=vertical
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-  syntax on
-endif
+" if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
+"   syntax on
+" endif
 
 " Load up all of our plugins
 " if filereadable(expand("~/.vimrc.bundles"))
@@ -388,7 +381,7 @@ map <silent><Leader><S-p> :set paste<CR>O<esc>"*]p:set nopaste<cr>"
 nnoremap <leader>q @q
 
 " bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+"nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " bind \ (backward slash) to grep shortcut
 command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
@@ -427,10 +420,10 @@ nnoremap <leader><leader> <c-^>
 
 " Save whenever switching windows or leaving vim. This is useful when running
 " the tests inside vim without having to save all files first.
-au FocusLost,WinLeave * :silent! wa
+" au FocusLost,WinLeave * :silent! wa
 
 " automatically rebalance windows on vim resize
-autocmd VimResized * :wincmd =
+" autocmd VimResized * :wincmd =
 
 "update dir to current file
 autocmd BufEnter * silent! cd %:p:h
@@ -468,20 +461,21 @@ augroup vimrcEx
 augroup END
 
 " Quick run via <F5>
-nnoremap <F5> :call compile_and_run()<CR>
-inoremap <F5> <Esc> :call compile_and_run()<CR>
+" nnoremap <F5> :call Ccompile_and_run()<CR>
+" inoremap <F5> <Esc> :call Ccompile_and_run()<CR>
 
 nnoremap 223 :AsyncRun! 2to3 % -w <CR>
 nnoremap d2u :AsyncRun! dos2unix % -w<CR>
 
 "space vim
-augroup SPACEVIM_ASYNCRUN
-    autocmd!
-    " Automatically open the quickfix window
-    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
-augroup END
+" augroup SPACEVIM_ASYNCRUN
+"     autocmd!
+"     " Automatically open the quickfix window
+"     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
+" augroup END
 
-function! s:compile_and_run()
+" function! s:Ccompile_and_run()
+function! Ccompile_and_run()
     exec 'w'
     if &filetype == 'c'
         exec "AsyncRun! gcc % -o %<"
@@ -547,16 +541,16 @@ noremap <silent><leader>lp :lprev<CR>
 
 " --- autocomplete / supertab / jscomplete ---
 set infercase
-"set completeopt=longest,menuone
+" set completeopt=longest,menuone
 "set omnifunc=syntaxcomplete#Complete
 "set completefunc=syntaxcomplete#Complete
 "set complete=.,w,b,u,U,t,i,d
 " see [autocommands] at the end for more autocomplete settings
 
-let g:SuperTabMappingForward = '<c-space>'
-let g:SuperTabMappingBackward = '<s-c-Space>'
-let g:SuperTabLongestEnhanced = 1
-let g:SuperTabDefaultCompletionType = "<c-p>"
+" let g:SuperTabMappingForward = '<c-space>'
+" let g:SuperTabMappingBackward = '<s-c-Space>'
+" let g:SuperTabLongestEnhanced = 1
+" let g:SuperTabDefaultCompletionType = "<c-p>"
 
 
 " --- EasyMotion ---
@@ -588,20 +582,20 @@ let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 
 " --- vim-signify ---
-let g:signify_update_on_focusgained = 1
+" let g:signify_update_on_focusgained = 1
 
 
 " --- Command-T ---
-let g:CommandTMaxFiles=2000
-let g:CommandTMaxHeight=12
-noremap <silent> <leader>tt :CommandT<CR>
-noremap <silent> <leader>bt :CommandTBuffer<CR>
-noremap <silent> <leader>tf :CommandTFlush<CR>
+" let g:CommandTMaxFiles=2000
+" let g:CommandTMaxHeight=12
+" noremap <silent> <leader>tt :CommandT<CR>
+" noremap <silent> <leader>bt :CommandTBuffer<CR>
+" noremap <silent> <leader>tf :CommandTFlush<CR>
 
 
 
 " --- LustyJuggler ---
-let g:LustyJugglerSuppressRubyWarning = 1  " avoid error if running on terminal
+" let g:LustyJugglerSuppressRubyWarning = 1  " avoid error if running on terminal
 
 
 " --- statline ---
@@ -620,29 +614,29 @@ let g:gundo_preview_bottom = 1
 
 " --- toggle indentation mode ---
 
-function! ToggleExpandTab()
-    if &et
-        set noet softtabstop=0
-    else
-        execute "set et softtabstop=". &tabstop
-    endif
-endfunction
+" function! ToggleExpandTab()
+"     if &et
+"         set noet softtabstop=0
+"     else
+"         execute "set et softtabstop=". &tabstop
+"     endif
+" endfunction
 
-noremap <silent> <leader>et :call ToggleExpandTab()<CR>
+" noremap <silent> <leader>et :call ToggleExpandTab()<CR>
 
 
 " --- Show syntax highlighting groups for word under cursor ---
 " http://vimcasts.org/episodes/creating-colorschemes-for-vim/
-nnoremap <leader>sh :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
+" nnoremap <leader>sh :call <SID>SynStack()<CR>
+" function! <SID>SynStack()
+"   if !exists("*synstack")
+"     return
+"   endif
+"   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+" endfunc
 
-" faster wehn opening files with large lines
-set synmaxcol=300
+" " faster wehn opening files with large lines
+" set synmaxcol=300
 
 
 " --- Highlight word under cursor ---
@@ -651,75 +645,75 @@ set synmaxcol=300
 
 
 " --- Tabular.vim ---
-noremap <silent> <leader>t: :Tabularize /:<CR>
-noremap <silent> <leader>t= :Tabularize /=<CR>
-noremap <silent> <leader>t, :Tabularize /,<CR>
-noremap <silent> <leader>t{ :Tabularize /{<CR>
-noremap <silent> <leader>t" :Tabularize /"<CR>
-noremap <silent> <leader>t' :Tabularize /'<CR>
-noremap <silent> <leader>t[ :Tabularize /[<CR>
-noremap <silent> <leader>t/ :Tabularize ///<CR>
-noremap <silent> <leader>t\| :Tabularize /\|<CR>
+" noremap <silent> <leader>t: :Tabularize /:<CR>
+" noremap <silent> <leader>t= :Tabularize /=<CR>
+" noremap <silent> <leader>t, :Tabularize /,<CR>
+" noremap <silent> <leader>t{ :Tabularize /{<CR>
+" noremap <silent> <leader>t" :Tabularize /"<CR>
+" noremap <silent> <leader>t' :Tabularize /'<CR>
+" noremap <silent> <leader>t[ :Tabularize /[<CR>
+" noremap <silent> <leader>t/ :Tabularize ///<CR>
+" noremap <silent> <leader>t\| :Tabularize /\|<CR>
 
 
 " --- include content of static files ---
 " borrowed from: http://vim.1045645.n5.nabble.com/vim-counterpart-for-persistent-includes-td4276915.html
 
-function! IncludeStatic()
- :g/<!-- #include "[^"]*" -->\_.\{-}<!-- end include -->/let fname = matchstr(getline('.'),'<!-- #include "\zs[^"]*\ze" -->')|exec '+,/<!-- end include -->/-!cat '.fnameescape(fname)
-endfunction
+" function! IncludeStatic()
+"  :g/<!-- #include "[^"]*" -->\_.\{-}<!-- end include -->/let fname = matchstr(getline('.'),'<!-- #include "\zs[^"]*\ze" -->')|exec '+,/<!-- end include -->/-!cat '.fnameescape(fname)
+" endfunction
 
-noremap <silent> <leader>ic :call IncludeStatic()<CR>
+" noremap <silent> <leader>ic :call IncludeStatic()<CR>
 
 
 
 " --- convert selected text from markdown to HTML ---
 vnoremap <silent> <leader>md :! mdown<CR>
 
-function! SanitizeMdown()
-    %s/<\/\?p>//
-    %s/<br \?\/\?>/ /
-    %s/<pre><code>/<pre class="brush:js">\r/
-    %s/<\/code><\/pre>/<\/pre>/
-endfunc
-noremap <silent> <leader>mds :call SanitizeMdown()<CR>
+" function! SanitizeMdown()
+"     %s/<\/\?p>//
+"     %s/<br \?\/\?>/ /
+"     %s/<pre><code>/<pre class="brush:js">\r/
+"     %s/<\/code><\/pre>/<\/pre>/
+" endfunc
+" noremap <silent> <leader>mds :call SanitizeMdown()<CR>
 
 
 
 " --- format JavaScript source code using esformatter --
 
-nnoremap <silent> <leader>es :Esformatter<CR>
-vnoremap <silent> <leader>es :EsformatterVisual<CR>
+" nnoremap <silent> <leader>es :Esformatter<CR>
+" vnoremap <silent> <leader>es :EsformatterVisual<CR>
 
 
 
 " --- toggle autocomplete behavior and word delimiters ---
 
-function! KeywordsAll()
-    setl iskeyword=@,48-57,192-255,\@,\$,%,-,_
-endfunc
+" function! KeywordsAll()
+"     setl iskeyword=@,48-57,192-255,\@,\$,%,-,_
+" endfunc
 
-function! KeywordsBasic()
-    setl iskeyword=@,48-57,192-255
-endfunc
+" function! KeywordsBasic()
+"     setl iskeyword=@,48-57,192-255
+" endfunc
 
 
 " --- visual block move ---
 " http://www.youtube.com/watch?v=aHm36-na4-4#t=35m10
 
-let g:DVB_TrimWS = 1
-vmap  <expr>  <S-LEFT>   DVB_Drag('left')
-vmap  <expr>  <S-RIGHT>  DVB_Drag('right')
-vmap  <expr>  <S-DOWN>   DVB_Drag('down')
-vmap  <expr>  <S-UP>     DVB_Drag('up')
-vmap  <expr>  D        DVB_Duplicate()
+" let g:DVB_TrimWS = 1
+" vmap  <expr>  <S-LEFT>   DVB_Drag('left')
+" vmap  <expr>  <S-RIGHT>  DVB_Drag('right')
+" vmap  <expr>  <S-DOWN>   DVB_Drag('down')
+" vmap  <expr>  <S-UP>     DVB_Drag('up')
+" vmap  <expr>  D        DVB_Duplicate()
 
 
 " --- transform lists ---
 " http://www.youtube.com/watch?v=aHm36-na4-4#t=17m30
 
-nmap <leader>ls :call ListTrans_toggle_format()<CR>
-vmap <leader>ls :call ListTrans_toggle_format('visual')<CR>
+" nmap <leader>ls :call ListTrans_toggle_format()<CR>
+" vmap <leader>ls :call ListTrans_toggle_format('visual')<CR>
 
 
 
@@ -919,5 +913,5 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:ale_enabled = 1
 nnoremap <Leader>( <esc>0 /print<CR>elr\($a\)<esc>  
 let g:UltiSnipsUsePythonVersion = 3
-let g:UltiSnipsSnippetDirectories = ['~/UltiSnips']
+" let g:UltiSnipsSnippetDirectories = ['~/UltiSnips']
 
