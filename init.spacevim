@@ -55,6 +55,8 @@ function! UserConfig()
    let g:ale_enabled = 1
    let g:completor_auto_trigger = 1
    let g:ackprg = 'ag --vimgrep *'
+   set completeopt=longest,menuone
+   
    "inoremap <expr> <Tab> pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
   " If you have installed the powerline fonts and want to enable airline layer
   " let g:airline_powerline_fonts=1

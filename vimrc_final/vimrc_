@@ -14,7 +14,6 @@ let g:WINDOWS = has('win32') || has('win64')
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
 " across (heterogeneous) systems easier.
 if g:WINDOWS
-  " set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
   " max the gui
   au GUIEnter * simalt ~x
 endif
@@ -199,7 +198,7 @@ endif
 " set wildmenu                " Hitting TAB in command mode will
 " set wildchar=<TAB>          "   show possible completions.
 " set wildmode=list:longest,full
-" set wildignore+=*.DS_STORE,*.db,node_modules/**,*.jpg,*.png,*.gif,*.git
+  set wildignore+=*.DS_STORE,*.db,node_modules/**,*.jpg,*.png,*.gif,*.git
 
 
 
@@ -310,10 +309,10 @@ set splitbelow
 " set splitright
 
 " Auto resize Vim splits to active split
-"set winwidth=104
-"set winheight=5
-"set winminheight=5
-"set winheight=999
+set winwidth=104
+set winheight=5
+set winminheight=5
+set winheight=999
 
 ""HTML Editing
 " set matchpairs+=<:>
@@ -530,8 +529,8 @@ let g:NERDCustomDelimiters = {
 
 
 " --- Syntastic : Linting / Error check ---
-let g:syntastic_auto_loc_list=2
-let g:syntastic_check_on_open=1
+" let g:syntastic_auto_loc_list=2
+" let g:syntastic_check_on_open=1
 " close/open location list (errors)
 noremap <silent><leader>lc :lcl<CR>
 noremap <silent><leader>lo :Errors<CR> :lw<CR>
@@ -689,13 +688,13 @@ vnoremap <silent> <leader>md :! mdown<CR>
 
 " --- toggle autocomplete behavior and word delimiters ---
 
-" function! KeywordsAll()
-"     setl iskeyword=@,48-57,192-255,\@,\$,%,-,_
-" endfunc
+function! KeywordsAll()
+    setl iskeyword=@,48-57,192-255,\@,\$,%,-,_
+endfunc
 
-" function! KeywordsBasic()
-"     setl iskeyword=@,48-57,192-255
-" endfunc
+function! KeywordsBasic()
+    setl iskeyword=@,48-57,192-255
+endfunc
 
 
 " --- visual block move ---
@@ -830,12 +829,6 @@ nnoremap <leader>aw :silent call KeywordsAll()<CR> :tab split<CR>:Ack<cword><CR>
 nnoremap <silent> <leader>ts :set spell!<CR>
 
 
-" Move between splits (windows)
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-
 " Move windows around (only works on same row)
 noremap <C-S-Right> <C-w>r
 noremap <C-S-Left> <C-w>R
@@ -892,16 +885,16 @@ augroup mm_buf_cmds
     autocmd FileType mustache runtime! ftplugin/html/sparkup.vim
 
     " Enable omnicomplete for supported filetypes
-    autocmd FileType css,scss setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    " autocmd FileType css,scss setlocal omnifunc=csscomplete#CompleteCSS
+    " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     " jscomplete is a separate plugin
-    autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
+    " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
     " make `gf` search for .js files
-    autocmd FileType javascript setlocal suffixesadd=.js
-    autocmd FileType javascript setlocal path+=js,scripts
+    " autocmd FileType javascript setlocal suffixesadd=.js
+    " autocmd FileType javascript setlocal path+=js,scripts
 
     " Color Column (only on insert)
     if exists("&colorcolumn")
