@@ -16,11 +16,15 @@ let g:WINDOWS = has('win32') || has('win64')
 if g:WINDOWS
   " max the gui
   au GUIEnter * simalt ~x
+  cd $USERPROFILE
+else
+  cd ~/
+  set lines=150 columns=1000
 endif
+
 " }
 
 
-cd $USERPROFILE
 ":cd C:/Users
 autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
       "\kraminen\Documents\PySave\ 

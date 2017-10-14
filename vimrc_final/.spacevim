@@ -9,7 +9,6 @@ function! Layers()
   Layer 'programming'
   " Layer 'editing'
   Layer 'code-snippets'
-  Layer 'UltiSnips'
   Layer 'auto-completion'
   Layer 'python'
   Layer 'syntax-checking'

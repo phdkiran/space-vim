@@ -1,6 +1,10 @@
 " Let Vim and NeoVim shares the same plugin directory.
 " Comment it out if you don't like
-let g:spacevim_plug_home = 'C:/Users/kraminen/.vim/plugged/'
+if g:WINDOWS
+  let g:spacevim_plug_home = 'C:/Users/kraminen/.vim/plugged/'
+else 
+  let g:spacevim_plug_home = '~/.vim/plugged/'
+endif
 
 " Enable the existing layers in space-vim
 function! Layers()
