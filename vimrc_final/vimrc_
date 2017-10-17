@@ -108,13 +108,13 @@ set ttimeoutlen=100             " faster timeout for escape key and others
 
 
 " Use a bar-shaped cursor for insert mode, even through tmux.
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
+" if exists('$TMUX')
+"     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"     let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+" else
+"     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+" endif
 
 
 
@@ -123,7 +123,7 @@ endif
 " UI
 " -----------------------------------------------------------------------------
 
-"set t_Co=256                " 256 colors terminal
+set t_Co=256                " 256 colors terminal
 "
 ""let g:molokai_original=0
 "" colorscheme molokai
@@ -242,7 +242,7 @@ set smarttab                    " At start of line, <Tab> inserts shift width
 
 set wrap                        " wrap lines
 set textwidth=80
-"set colorcolumn=+1              " Show large lines
+set colorcolumn=+1              " Show large lines
 set formatoptions=qrn1          " automatic formating.
 set formatoptions-=o            " don't start new lines w/ comment leader on
                                 "   pressing 'o'
@@ -302,7 +302,7 @@ set textwidth=100
 " set formatoptions=cq
 set formatoptions=qrn1
 set wrapmargin=0
-set colorcolumn=+1
+" set colorcolumn=+1
 
 " Numbers
 set number
