@@ -144,9 +144,10 @@ setup_vim_plug() {
 }
 
 generate_dot_spacevim() {
-    if [ ! -f "$dot_spacevim" ]; then
-        cp "$APP_PATH/init.spacevim" "$dot_spacevim"
-    fi
+    cp "$APP_PATH/init.spacevim" "$dot_spacevim"
+    # if [ ! -f "$dot_spacevim" ]; then
+        # cp "$APP_PATH/init.spacevim" "$dot_spacevim"
+    # fi
 
     debug
 }

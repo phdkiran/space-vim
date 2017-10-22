@@ -35,13 +35,14 @@ endif
 "let g:spacevim_dir = $HOME.'/.space-vim'
 if g:WINDOWS
     let g:spacevim_dir = $HOME.'/Documents/dotfiles/space-vim'
+    set runtimepath+=$HOME/Documents/dotfiles/space-vim/core
 else
     let g:spacevim_dir = $HOME.'/space-vim'
+    set runtimepath+=$HOME/space-vim/core
 endif
 let g:spacevim_core_dir = '/core'
 let g:spacevim_version = '0.6.0'
 
-set runtimepath+=$HOME/Documents/dotfiles/space-vim/core
 
 call spacevim#begin()
 
