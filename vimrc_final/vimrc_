@@ -19,7 +19,6 @@ if g:WINDOWS
 endif
 " }
 
-
 cd $USERPROFILE
 ":cd C:/Users
 autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
@@ -47,7 +46,8 @@ nnoremap <leader>avss :tabnew ~/.spacevim<CR>
 nnoremap <leader>jk <esc><CR>
 nnoremap <leader>x :x<CR>
 inoremap jk <esc>
-inoremap ww <esc> :w <CR>
+inoremap ww :w <CR>
+nnoremap ww <esc> :w <CR>
 nnoremap <leader>av :tabnew ~/.vimrc <CR>
 inoremap aff <esc> :Autoformat <CR>
 nnoremap <leader>so :source $VIMRC<CR>
@@ -310,9 +310,9 @@ set splitbelow
 
 " Auto resize Vim splits to active split
 set winwidth=104
-set winheight=5
+set winheight=9
 set winminheight=5
-set winheight=999
+" set winheight=999
 
 ""HTML Editing
 " set matchpairs+=<:>
@@ -460,21 +460,20 @@ augroup vimrcEx
 augroup END
 
 " Quick run via <F5>
-" nnoremap <F5> :call Ccompile_and_run()<CR>
-" inoremap <F5> <Esc> :call Ccompile_and_run()<CR>
+nnoremap <F5> :call Ccompile_and_run()<CR>
 
 nnoremap 223 :AsyncRun! 2to3 % -w <CR>
 nnoremap d2u :AsyncRun! dos2unix % -w<CR>
 
 "space vim
-" augroup SPACEVIM_ASYNCRUN
-"     autocmd!
-"     " Automatically open the quickfix window
-"     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
-" augroup END
+augroup SPACEVIM_ASYNCRUN
+    autocmd!
+    " Automatically open the quickfix window
+    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(10, 1)
+augroup END
 
-" function! s:Ccompile_and_run()
-function! Ccompile_and_run()
+function! s:Ccompile_and_run()
+" function! Ccompile_and_run()
     exec 'w'
     if &filetype == 'c'
         exec "AsyncRun! gcc % -o %<"
@@ -485,7 +484,7 @@ function! Ccompile_and_run()
     elseif &filetype == 'sh'
        exec "AsyncRun! bash %"
     elseif &filetype == 'python'
-       exec "AsyncRun! -raw python %"
+       exec "AsyncRun -raw python %"
     endif
 endfunction
 
@@ -908,3 +907,20 @@ nnoremap <Leader>( <esc>0 /print<CR>elr\($a\)<esc>
 let g:UltiSnipsUsePythonVersion = 3
 " let g:UltiSnipsSnippetDirectories = ['~/UltiSnips']
 
+inoremap rr :w \| :call Ccompile_and_run()<CR>
+nnoremap rr :w \| :call Ccompile_and_run()<CR>
+inoremap <F5> <Esc> :w  \| :call Ccompile_and_run()<CR>
+nnoremap <leader>q :call asyncrun#quickfix_toggle(10)<cr>
+
+" nose tests
+" " make test commands execute using dispatch.vim
+" let test#strategy = "dispatch"
+let test#strategy = "asyncrun"
+
+let test#python#runner = 'nose'
+" Runners available are 'pytest', 'nose', 'nose2', 'djangotest', 'djangonose' and Python's built-in 'unittest'
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
