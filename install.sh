@@ -86,7 +86,6 @@ install_for_vim() {
     install_plugins "vim"
 }
 
-<<<<<<< HEAD
 generate_dot_spacevim() {
     cp "$APP_PATH/init.spacevim" "$dot_spacevim"
     # if [ ! -f "$dot_spacevim" ]; then
@@ -95,7 +94,7 @@ generate_dot_spacevim() {
 
     debug
 }
-=======
+
 install_for_neovim() {
     backup "$HOME/.config/nvim/init.vim"
     msg "\033[1;34m==>\033[0m Trying to download vim-plug"
@@ -103,7 +102,6 @@ install_for_neovim() {
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     ret="$?"
     success "Successfully downloaded vim-plug"
->>>>>>> 0b91af6cc191f1c4c49a3eb0a990030b9b123349
 
     mkdir -p "$HOME/.config/nvim"
     ln -sf "$HOME/.space-vim/init.vim" "$HOME/.config/nvim/init.vim"
