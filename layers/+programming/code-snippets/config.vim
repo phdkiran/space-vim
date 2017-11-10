@@ -2,6 +2,7 @@ scriptencoding utf-8
 
 " ultisnips {
   " Set ultisnips triggers
+<<<<<<< HEAD
   exe 'set rtp+=' . expand($HOME.'/.vim/plugged/vim-snippets/UltiSnips')
   " exe 'set rtp+=' . expand($HOME.'/.vim/plugged/vim-snippets/snippets', $HOME.'/.vim/plugged/vim-snippets/UltiSnips', g:spacevim_dir . '/private/UltiSnips')
   " exe 'set rtp+=' . expand(g:spacevim_dir . '/private/UltiSnips')
@@ -11,6 +12,11 @@ scriptencoding utf-8
   " let g:UltiSnipsSnippetDirectories = [g:spacevim_dir.'/private/UltiSnips','~/UltiSnips']
   " let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/plugged/vim-snippets/snippets', $HOME.'/.vim/plugged/vim-snippets/UltiSnips', g:spacevim_dir.'/private/UltiSnips','~/UltiSnips']
   let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/plugged/vim-snippets/UltiSnips',  g:spacevim_dir.'/private/UltiSnips','~/UltiSnips']
+=======
+  let g:UltiSnipsSnippetDirectories=['UltiSnips']
+  exe 'set rtp+=' . expand(g:spacevim_dir . '/private/UltiSnips')
+  let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+>>>>>>> 0b91af6cc191f1c4c49a3eb0a990030b9b123349
 
   let g:UltiSnipsListSnippets = '<C-l>'
   let g:UltiSnipsJumpForwardTrigger = '<C-j>'
