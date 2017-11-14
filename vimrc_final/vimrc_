@@ -162,6 +162,7 @@ if has('gui_running')
     set guioptions-=b       " bottom scroll bar
     set guioptions-=h      " only calculate bottom scroll size of current line
     set shortmess=atI       " Don't show the intro message at start and
+    set winaltkeys=no
                             "   truncate msgs (avoid press ENTER msgs).
 endif
 
@@ -476,8 +477,8 @@ augroup SPACEVIM_ASYNCRUN
     autocmd User AsyncRunStart call asyncrun#quickfix_toggle(10, 1)
 augroup END
 
-function! s:Ccompile_and_run()
-" function! Ccompile_and_run()
+" function! s:Ccompile_and_run()
+function! Ccompile_and_run()
     exec 'w'
     if &filetype == 'c'
         exec "AsyncRun! gcc % -o %<"
