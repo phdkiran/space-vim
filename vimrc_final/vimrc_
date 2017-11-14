@@ -884,7 +884,7 @@ augroup mm_buf_cmds
 
     " filetype
     autocmd BufNewFile,BufRead *.json setf json
-    autocmd BufNewFile,BufRead .spacevim setf vim 
+    autocmd BufNewFile,BufRead .spacevim setf vim
 
     autocmd FileType mustache runtime! ftplugin/html/sparkup.vim
 
@@ -905,10 +905,11 @@ augroup mm_buf_cmds
         autocmd InsertEnter * set colorcolumn=80
         autocmd InsertLeave * set colorcolumn=""
     endif
+
 augroup END
 let g:indent_guides_enable_on_vim_startup = 1
 let g:ale_enabled = 1
-nnoremap <Leader>( <esc>0 /print<CR>elr\($a\)<esc>  
+" nnoremap <Leader>( <esc>0 /print<CR>elr\($a\)<esc>  
 let g:UltiSnipsUsePythonVersion = 3
 " let g:UltiSnipsSnippetDirectories = ['~/UltiSnips']
 
@@ -929,3 +930,12 @@ nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
+
+
+" LeaderGuide
+nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
+
+" turnoff multi cursor bindings
+let g:multi_cursor_use_default_mapping=0
+
